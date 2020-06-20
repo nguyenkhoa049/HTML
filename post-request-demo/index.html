@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Post request</title>
+</head>
+<body>
+	<div>
+		<p><a href="./newItem.html">Add new Item</a></p>
+	</div>
+	<div>
+		<ul id ="listHtml"></ul>
+	</div>
+
+
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="text/javascript">
+
+		var htmlList = document.getElementById('listHtml');
+		var url = 'http://localhost:9081/todo';
+
+		axios.get(url).then(function(res){
+			todoList = res.data;
+			render(todoList);
+		});
+		function render (array) {
+			var content = array.map(function(item){
+				
+			return '<li id ='+ i +'>' + item.content + '<button onclick="document.location =' + "'./editItem.html#" + i + "'" + '"' + '> Edit Item </button></li>';			});
+			htmlList.innerHTML = content.join("");
+		};
+		
+	</script>
+</body>
+</html>

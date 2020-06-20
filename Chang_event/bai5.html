@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ex5</title>
+</head>
+<body>
+	<h2>Select city</h2>
+	<form id="checkbox-form">
+		<input type="checkbox">Ha Noi <br>
+		<input type="checkbox">Hai Phong <br>
+		<input type="checkbox">Ho Chi Minh City <br>
+		<input type="checkbox">Da Nang <br>
+		<input type="checkbox">Ca Mau <br>
+	</form>
+	<hr>
+	<p id="notification">You selected 0 city</p>
+
+	<script type="text/javascript">
+		var checkboxForm = document.getElementById('checkbox-form');
+		var checkboxs = document.getElementsByTagName('input');
+
+
+		for(var checkbox of checkboxs){
+
+			checkbox.addEventListener('click', noti);
+		}
+
+		function noti(){
+			var count = 0;
+			var noti = document.getElementById('notification');
+			for(var checkbox of checkboxs){
+				if(checkbox.checked === true){
+					count++;
+				}
+			}
+			noti.innerHTML = `You selected ${count} city`;
+		}
+	</script>
+</body>
+
+</html> 

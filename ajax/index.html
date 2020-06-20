@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>LocalStorage</title>
+        <meta charset="utf-8">
+        <style>
+
+        </style>
+    </head>
+    
+    <body>
+        <h1>To do list</h1>
+        <input type="text" placeholder="Moi ban nhap input" id="inputText">
+        <button id="btn-add">Add</button>
+        <div>
+            <ul id="ul-List">
+
+            </ul>
+        </div>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type="text/javascript">
+            var url = 'http://localhost:9081/todo';
+            axios.get(url).then(function (res){
+                var items = res.data;
+                //console.log(items);
+                render(items)
+            });
+          
+           
+            //nhận value từ button
+            var btnclick = document.getElementById('btn-add');
+            // bắt sự kiện click
+            btnclick.addEventListener('click',addItem);
+
+            function addItem()
+            {
+                //nhận value từ input text
+                var textInput = document.getElementById('inputText');
+                //thêm input vào mảng
+                todoList.push(textInput.value);
+                // load lại 
+                render();
+                textInput.value='';
+                //store data
+                localStorage.setItem(storageKey, JSON.stringify(todoList));
+
+            }
+              //load ds
+            function render(items)
+            {
+                var ulList = document.getElementById('ul-List');
+                var temp = items.map(function(x)
+                {
+                    return '<li>' + x.content + '</li>';
+                })
+                ulList.innerHTML = temp.join('');
+            }
+
+            //render();
+        </script>
+    </body>
+</html>

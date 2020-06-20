@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>LocalStorage</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1>To do list</h1>
+        <input type="text" placeholder="Moi ban nhap input" id="inputText">
+        <button id="btn-add">Add</button>
+        <div>
+            <ul id="ul-List">
+            </ul>
+        </div>
+        <script type="text/javascript">
+            var storageKey = 'todoList'
+            var ulList = document.getElementById('ul-List');
+            var dataString = localStorage.getItem(storageKey);
+            var todoList;
+            if(dataString)
+            {
+                todoList = JSON.parse(dataString);
+            }else{
+                todoList = [];
+            }
+            //nhận value từ button
+            var btnclick = document.getElementById('btn-add');
+            // bắt sự kiện click
+            btnclick.addEventListener('click',addItem);
+            function addItem()
+            {
+                //nhận value từ input text
+                var textInput = document.getElementById('inputText');
+                //thêm input vào mảng
+                if(textInput.value === '')
+                {
+                    alert('Chua nhap input');
+                }else{
+                    todoList.push(textInput.value);
+                }
+                // load lại 
+                render();
+                textInput.value='';
+                //store data
+                localStorage.setItem(storageKey, JSON.stringify(todoList));
+
+            }
+            //load ds
+            function render()
+            {
+                var content = todoList.map(function(x)
+                {
+                    return '<li>' + x + '</li>';
+                })
+                ulList.innerHTML = content.join('');
+            }
+
+       
+
+            render();
+        </script>
+    </body>
+</html>

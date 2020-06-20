@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>LocalStorage</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1>To do list</h1>
+        <input type="text" placeholder="Moi ban nhap input" id="inputText">
+        <button id="btn-add">Add</button>
+        <div>
+            <ul id="ul-List">
+            </ul>
+        </div>
+        <script type="text/javascript">
+            var storageKey = 'todoList'
+            ///
+            var ulList = document.getElementById('ul-List');
+              //nhận value từ button
+            var btnclick = document.getElementById('btn-add');
+            var dataString = localStorage.getItem(storageKey);
+            var todoList;
+
+            // sự kiện 
+            //bắt sự kiện click
+            btnclick.addEventListener('click',addItem);
+            ulList.addEventListener('click', onListCLick);
+
+
+            if(dataString)
+            {
+                todoList = JSON.parse(dataString);
+            }else{
+                todoList = [];
+            }
+
+            function onListCLick (event) {
+                var button = event.target;
+                var i = parseInt(button.dataset.id);
+                todoList.splice(i, 1);
+                render();
+                localStorage.setItem(storageKey, JSON.stringify(todoList));
+            }
+
+            function addItem()
+            {
+                //nhận value từ input text
+                var textInput = document.getElementById('inputText');
+                //thêm input vào mảng
+                if(textInput.value === '')
+                {
+                    alert('Chua nhap input');
+                }else{
+                    todoList.push(textInput.value);
+                }
+                // load lại 
+                render();
+                textInput.value='';
+                //store data
+                localStorage.setItem(storageKey, JSON.stringify(todoList));
+
+            }
+            //load ds
+            function render()
+            {
+                var content = todoList.map(function(x,i)
+                {
+                    return '<li>' + x + ' <button data-id="' + i + '">Delete</button></li>';
+                })
+                ulList.innerHTML = content.join('');
+            }
+
+       
+
+            render();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>EX3</title>
+    </head>
+    <body>
+        <h1>Hello</h1>
+        <p>What is your name?</p>
+        <input type="text" id="text-input" placeholder="Nhập tên của bạn">
+        <button id="btn-go">Go</button>
+        <p id="input"></p>
+
+        <script>
+            var textInput = document.getElementById('text-input');
+            var btn = document.getElementById('btn-go');
+            btn.addEventListener('click', showHello);
+            function showHello()
+            {
+                var name = textInput.value;
+                var result = document.getElementById('input');
+                result.innerHTML = 'Hello, ' + textInput.value;
+                textInput.value = '';
+            }
+        </script>
+    </body>
+</html>

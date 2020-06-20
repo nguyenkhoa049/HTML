@@ -1,0 +1,18 @@
+h1 {
+    color:rgb(195, 0, 255);
+    font-family: monospace;
+    font-size: 190%;
+    border: 1px solid red;;
+}
+#p01{
+    font-family: fantasy;
+    font-size: 150%;
+    color: red;
+}
+p {
+    color: rgb(15, 3, 10);
+    font-family: fantasy;
+    font-size: 150%;
+
+}
+body {background-color: paleturquoise;}

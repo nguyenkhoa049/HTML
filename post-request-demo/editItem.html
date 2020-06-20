@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit item</title>
+</head>
+
+<body>
+	<input id="input-item" type="text"/>
+	<button id="save-btn">Save</button><br><br>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="text/javascript">
+
+		var saveBtn = document.getElementById('save-btn');
+			saveBtn.addEventListener('click', save);
+		var i = parseInt(location.hash.slice(1, 2));
+		var url = 'http://localhost:9081/todo';
+		var todoList;
+		var input = document.getElementById('input-item');
+		
+
+			axios.get(url).then(function(res){
+				todoList = res.data; //[{}]
+				var value = todoList.filter(function(item){
+					return item.id === i;
+				});
+				
+				input.value = value[0].content;
+			});
+
+		function save(){
+			var url = 'http://localhost:9081/todo';
+			var content = {content : input.value};
+			axios.put(url, content);
+			window.location.href = '/'
+		}
+
+	</script>
+</body>
+</html>
